@@ -1,7 +1,7 @@
 ###########################################
 # run using: 
-# docker build -t ffbo/nlp .
-# docker run --name nlp_component python nlp_component.py --url <ws(s)://processor-ip:processor-port>
+# docker build -t ffbo/nlp_component .
+# docker run --name nlp_component -t ffbo/nlp_component python nlp_component.py --url <ws(s)://processor-ip:processor-port>
 ###########################################
 FROM python:2
 

@@ -1,7 +1,7 @@
 ###########################################
 # run using: 
-# docker build -t ffbo/nlp_component .
-# docker run --name nlp_component -v $(dirname `pwd`):/nlp_component -v $(dirname $(dirname `pwd`))/ffbo.neuroarch_nlp:/neuroarch_nlp -v $(dirname $(dirname `pwd`))/quepy:/quepy -it ffbo/nlp_component sh /nlp_component/nlp_component/run_component_docker.sh
+# docker build -t ffbo/nlp_component:develop .
+# docker run --name nlp_component -v $(dirname `pwd`):/nlp_component -v $(dirname $(dirname `pwd`))/ffbo.neuroarch_nlp:/neuroarch_nlp -v $(dirname $(dirname `pwd`))/quepy:/quepy -it ffbo/nlp_component:develop sh /nlp_component/nlp_component/run_component_docker.sh
 ###########################################
 FROM python:2
 

@@ -1,1 +1,1 @@
-docker build -t ffbo/nlp_component .
+docker build -t ffbo/nlp_component:develop .
