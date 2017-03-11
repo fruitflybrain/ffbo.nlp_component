@@ -32,5 +32,6 @@ RUN pip install -U spaCy
 RUN python -m spacy.en.download
 
 # Install neuroarch_nlp dependencies
-RUN pip install fuzzywuzzy
-RUN pip install python-Levenshtein
+RUN pip install -U fuzzywuzzy
+RUN pip install -U python-Levenshtein
+RUN pip install -U datadiff
