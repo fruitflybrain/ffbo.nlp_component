@@ -62,9 +62,6 @@ class AppSession(ApplicationSession):
         translators = {}
         
         self.server_config = {'name': 'nlp_server'}
-        self.log.warn("Loading Config Dictionary Failed, defaulting to {items}. Exception {e}",
-                      items=self.server_config.items(),e=e)
-
 
         #@inlineCallbacks
         def nlp_query(query,language='en'):
