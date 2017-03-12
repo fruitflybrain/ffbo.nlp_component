@@ -115,7 +115,7 @@ class AppSession(ApplicationSession):
         register_component()
 
 if __name__ == '__main__':
-        from twisted.internet._sslverify import OpenSSLCertificateAuthorities
+    from twisted.internet._sslverify import OpenSSLCertificateAuthorities
     from twisted.internet.ssl import CertificateOptions
     import OpenSSL.crypto
     
