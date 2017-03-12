@@ -14,14 +14,11 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install Python and Basic Python Tools
 RUN apt-get install -y --force-yes --force-yes python python-dev python-distribute python-pip
 
-# Install numpy and pandas
-RUN apt-get update && apt-get -y --force-yes install python-numpy \
-    python-pandas
-
 # install Autobahn|Python
 RUN pip install -U pip && pip install autobahn[twisted]
 
 # Install quepy dependencies
+RUN pip install pandas
 RUN pip install refo
 RUN pip install SPARQLWrapper
 RUN pip install docopt
@@ -35,3 +32,4 @@ RUN pip install -U fuzzywuzzy
 RUN pip install python-Levenshtein
 RUN pip install -U datadiff
 RUN pip install pyOpenSSL
+RUN pip install service_identity
