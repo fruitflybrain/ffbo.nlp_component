@@ -1,1 +1,2 @@
+docker rm nlp_component
 docker run --name nlp_component -v $(dirname `pwd`):/nlp_component  -v $(dirname $(dirname `pwd`))/ffbo.neuroarch_nlp:/neuroarch_nlp -v $(dirname $(dirname `pwd`))/quepy:/quepy -it ffbo/nlp_component:develop sh /nlp_component/nlp_component/run_component_docker.sh
