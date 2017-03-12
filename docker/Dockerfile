@@ -19,8 +19,7 @@ RUN apt-get update && apt-get -y --force-yes install python-numpy \
     python-pandas
 
 # install Autobahn|Python
-RUN pip install -U pip && pip install autobahn[twisted] && pip install crossbar
-
+RUN pip install -U pip && pip install autobahn[twisted]
 
 # Install Lang id
 WORKDIR /app
@@ -39,5 +38,6 @@ RUN python -m spacy.en.download
 
 # Install neuroarch_nlp dependencies
 RUN pip install -U fuzzywuzzy
-RUN pip install -U python-Levenshtein
+RUN pip install python-Levenshtein
 RUN pip install -U datadiff
+RUN pip install pyOpenSSL
