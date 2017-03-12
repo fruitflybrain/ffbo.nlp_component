@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y apt-transport-https
 ENV HOME /app
 ENV DEBIAN_FRONTEND noninteractive
 
+# Install Python and Basic Python Tools
+RUN apt-get install -y --force-yes --force-yes python python-dev python-distribute python-pip
 
 # install Autobahn|Python
 RUN pip install -U pip && pip install autobahn[twisted] && pip install crossbar
