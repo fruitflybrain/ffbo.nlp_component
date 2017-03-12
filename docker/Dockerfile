@@ -14,6 +14,10 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install Python and Basic Python Tools
 RUN apt-get install -y --force-yes --force-yes python python-dev python-distribute python-pip
 
+# Install numpy and pandas
+RUN apt-get update && apt-get -y --force-yes install python-numpy \
+    python-pandas
+
 # install Autobahn|Python
 RUN pip install -U pip && pip install autobahn[twisted] && pip install crossbar
 
