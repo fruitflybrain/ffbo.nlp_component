@@ -21,19 +21,13 @@ RUN apt-get update && apt-get -y --force-yes install python-numpy \
 # install Autobahn|Python
 RUN pip install -U pip && pip install autobahn[twisted]
 
-# Install Lang id
-WORKDIR /app
-RUN git clone https://github.com/saffsd/langid.py.git 
-WORKDIR /app/langid.py
-RUN python setup.py install
-
 # Install quepy dependencies
-RUN pip install -U refo
-RUN pip install -U SPARQLWrapper
-RUN pip install -U docopt
-RUN pip install -U nltk
+RUN pip install refo
+RUN pip install SPARQLWrapper
+RUN pip install docopt
+RUN pip install nltk
 RUN python -m nltk.downloader maxent_treebank_pos_tagger wordnet averaged_perceptron_tagger
-RUN pip install -U spaCy
+RUN pip install spaCy
 RUN python -m spacy.en.download
 
 # Install neuroarch_nlp dependencies
