@@ -33,7 +33,7 @@ class AppSession(ApplicationSession):
  
     def onChallenge(self, challenge):
         if challenge.method == u"wampcra":
-            print("WAMP-CRA challenge received: {}".format(challenge))
+            #print("WAMP-CRA challenge received: {}".format(challenge))
             
             if u'salt' in challenge.extra:
                 # salted secret
@@ -56,7 +56,6 @@ class AppSession(ApplicationSession):
                                     
     @inlineCallbacks
     def onJoin(self, details):
-
         server = Translator()
         
         translators = {}
@@ -77,7 +76,7 @@ class AppSession(ApplicationSession):
             res = server.nlp_query(query)
             return res
 
-        uri = 'ffbo.nlp.query.%s' % (str(details.session))
+        uri = six.u('ffbo.nlp.query.%s' % (str(details.session)))
         yield self.register(nlp_query, uri,options=RegisterOptions(concurrency=10))
         self.log.info('procedure %s registered' % uri)
 
@@ -88,7 +87,7 @@ class AppSession(ApplicationSession):
             # CALL server registration
             try:
                 # registered the procedure we would like to call
-                res = yield self.call('ffbo.server.register', details.session,
+                res = yield self.call(six.u('ffbo.server.register'), details.session,
                                       'nlp', self.server_config['name'])
                 self.log.info("register new server called with result: {result}",
                                                     result=res)
@@ -97,7 +96,7 @@ class AppSession(ApplicationSession):
                 if e.error != 'wamp.error.no_such_procedure':
                     raise e
 
-        yield self.subscribe(register_component, 'ffbo.processor.connected')
+        yield self.subscribe(register_component, six.u('ffbo.processor.connected'))
         self.log.info("subscribed to topic 'ffbo.processor.connected'")
         
         register_component()
