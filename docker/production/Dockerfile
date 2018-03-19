@@ -26,7 +26,8 @@ RUN python setup.py install
 
 # Install spaCy
 RUN pip install -U spaCy
-RUN python -m spacy.en.download
+#RUN python -m spacy.en.download
+python -m spacy download en
 
 # Install (our) quepy
 WORKDIR /app
