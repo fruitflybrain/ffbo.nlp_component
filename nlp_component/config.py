@@ -1,5 +1,5 @@
-user = 'component'
-secret = 'xKzKbt62w3vx'
+user = u'component'
+secret = u'xKzKbt62w3vx'
 
 ssl = False
 url = 'ws://localhost:8081/ws'
