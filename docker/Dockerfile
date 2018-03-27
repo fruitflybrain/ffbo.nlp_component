@@ -26,7 +26,7 @@ RUN pip install nltk
 RUN python -m nltk.downloader maxent_treebank_pos_tagger wordnet averaged_perceptron_tagger
 RUN pip install spaCy
 #RUN python -m spacy.en.download
-python -m spacy download en
+RUN python -m spacy download en
 
 # Install neuroarch_nlp dependencies
 RUN pip install -U fuzzywuzzy
