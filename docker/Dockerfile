@@ -24,9 +24,9 @@ RUN pip install SPARQLWrapper
 RUN pip install docopt
 RUN pip install nltk
 RUN python -m nltk.downloader maxent_treebank_pos_tagger wordnet averaged_perceptron_tagger
-RUN pip install spaCy
-#RUN python -m spacy.en.download
-RUN python -m spacy download en
+RUN pip install spaCy==1.6.0
+RUN python -m spacy.en.download
+#RUN python -m spacy download en
 
 # Install neuroarch_nlp dependencies
 RUN pip install -U fuzzywuzzy
