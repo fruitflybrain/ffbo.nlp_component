@@ -1,7 +1,7 @@
-DOCKER_NAME = "ffbo.nlp_component"
+DOCKER_NAME="ffbo.nlp_component"
 if [ "$#" -eq 1 ]
 then
-    DOCKER_NAME = $1
+    DOCKER_NAME=$1
 fi
 
 docker rm $DOCKER_NAME
