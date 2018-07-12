@@ -62,4 +62,4 @@ or
     export PYTHONPATH=/neuroarch_nlp:/quepy:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/dist-packages/:$PYTHONPATH
     python nlp_component.py --url ws://ffbo.processor:8081/ws --no-ssl
 
-This will launch the router, processor and web interface on port 8080 or the local server. Details of the crossbar config can be seen in .crossbar/config.json
+This will launch NeuroNLP and start the connection between it and the Processor component.
