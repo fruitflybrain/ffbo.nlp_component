@@ -1,3 +1,4 @@
+
 from twisted.internet.defer import inlineCallbacks, returnValue
 from twisted.logger import Logger
 from twisted.internet import threads
@@ -21,7 +22,7 @@ from autobahn.wamp import auth
 
 from configparser import ConfigParser
 
-#Grab configuration from file
+# Grab configuration from file
 home = os.path.expanduser("~")
 filepath = os.path.dirname(os.path.abspath(__file__))
 default_config = os.path.join(home, "config", "ffbo.nlp_component.ini")
@@ -34,15 +35,25 @@ elif os.path.exists(backup_config):
 else:
     raise Exception("No config file exists for this component")
 
+user = config["UserInfo"]["user"]
+secret = config["UserInfo"]["secret"]
+ssl = eval(config["ServerInfo"]["ssl"])
+url = config["ServerInfo"]["url"]
+realm = config["ServerInfo"]["realm"]
+authentication = eval(config["ServerInfo"]["authentication"])
+debug = eval(config["DebugInfo"]["debug"]
+ca_cert_file = config["CertInfo"]["ca_cert_file"]
+intermediate_cert_file = config["CertInfo"]["intermediate_cert_file"]
+
 class AppSession(ApplicationSession):
 
     log = Logger()
     
     def onConnect(self):
         if self.config.extra['auth']:
-            self.join(self.config.realm, [u"wampcra"], config["UserInfo"]["user"])
+            self.join(self.config.realm, [u"wampcra"], user)
         else:
-            self.join(self.config.realm, [], config["UserInfo"]["user"])
+            self.join(self.config.realm, [], user)
  
     def onChallenge(self, challenge):
         if challenge.method == u"wampcra":
@@ -50,13 +61,13 @@ class AppSession(ApplicationSession):
             
             if u'salt' in challenge.extra:
                 # salted secret
-                key = auth.derive_key(config["UserInfo"]["secret"],
+                key = auth.derive_key(secret,
                                       challenge.extra['salt'],
                                       challenge.extra['iterations'],
                                       challenge.extra['keylen'])
             else:
                 # plain, unsalted secret
-                key = config["UserInfo"]["secret"]
+                key = secret
                 
             # compute signature for challenge, using the key
             signature = auth.compute_wcs(key, challenge.extra['challenge'])
@@ -124,21 +135,21 @@ if __name__ == '__main__':
     # parse command line parameters
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug output.')
-    parser.add_argument('--url', dest='url', type=six.text_type, default=config["ServerInfo"]["url"],
+    parser.add_argument('--url', dest='url', type=six.text_type, default=url,
                         help='The router URL (defaults to value from config.py)')
-    parser.add_argument('--realm', dest='realm', type=six.text_type, default=config["ServerInfo"]["realm"],
+    parser.add_argument('--realm', dest='realm', type=six.text_type, default=realm,
                         help='The realm to join (defaults to value from config.py).')
     parser.add_argument('--ca_cert', dest='ca_cert_file', type=six.text_type,
-                        default=config["CertInfo"]["ca_cert_file"],
+                        default=ca_cert_file,
                         help='Root CA PEM certificate file (defaults to value from config.py).')
     parser.add_argument('--int_cert', dest='intermediate_cert_file', type=six.text_type,
-                        default=config["CertInfo"]["intermediate_cert_file"],
+                        default=intermediate_cert_file,
                         help='Intermediate PEM certificate file (defaults to value from config.py).')
     parser.add_argument('--no-ssl', dest='ssl', action='store_false')
     parser.add_argument('--no-auth', dest='authentication', action='store_false')
-    parser.set_defaults(ssl=config["ServerInfo"]["ssl"])
-    parser.set_defaults(authentication=config["ServerInfo"]["authentication"])
-    parser.set_defaults(debug=config["DebugInfo"]["debug"])
+    parser.set_defaults(ssl=ssl)
+    parser.set_defaults(authentication=authentication)
+    parser.set_defaults(debug=debug)
     
     args = parser.parse_args()
 
@@ -171,4 +182,3 @@ if __name__ == '__main__':
         runner = ApplicationRunner(url=args.url, realm=args.realm, extra=extra)
 
     runner.run(AppSession)
-    
