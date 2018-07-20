@@ -41,7 +41,7 @@ ssl = eval(config["ServerInfo"]["ssl"])
 url = config["ServerInfo"]["url"]
 realm = config["ServerInfo"]["realm"]
 authentication = eval(config["ServerInfo"]["authentication"])
-debug = eval(config["DebugInfo"]["debug"]
+debug = eval(config["DebugInfo"]["debug"])
 ca_cert_file = config["CertInfo"]["ca_cert_file"]
 intermediate_cert_file = config["CertInfo"]["intermediate_cert_file"]
 
