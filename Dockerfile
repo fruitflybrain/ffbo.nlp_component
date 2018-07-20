@@ -47,6 +47,13 @@ RUN pip install pyOpenSSL
 RUN pip install service_identity
 RUN pip install configparser
 
+WORKDIR /quepy
+RUN python setup.py install
+WORKDIR /neuroarch_nlp
+RUN python setup.py install
+WORKDIR /nlp_component
+RUN python setup.py install
+
 WORKDIR /nlp_component/nlp_component
 
 #Run the application
