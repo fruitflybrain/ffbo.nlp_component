@@ -50,4 +50,4 @@ RUN pip install configparser
 WORKDIR /nlp_component/nlp_component
 
 #Run the application
-CMD sh run_component_docker.sh $(sed -n -e 's/^\s*url\s*=\s*//p' config.ini) --no-ssl 
+CMD sh run_component_docker.sh $(sed -n -e 's/^\s*url\s*=\s*//p' ../config.ini) --no-ssl 
