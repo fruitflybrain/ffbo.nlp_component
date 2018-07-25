@@ -23,15 +23,19 @@ from autobahn.wamp import auth
 from configparser import ConfigParser
 
 # Grab configuration from file
+root = os.path.expanduser("/")
 home = os.path.expanduser("~")
 filepath = os.path.dirname(os.path.abspath(__file__))
 default_config = os.path.join(home, "config", "ffbo.nlp_component.ini")
-backup_config = os.path.join(filepath, "..", "config.ini")
+backup_config1 = os.path.join(root, "config", "ffbo.nlp_component.ini")
+backup_config2 = os.path.join(filepath, "..", "config.ini")
 config = ConfigParser()
 if os.path.exists(default_config):
-    config.read(default_config)
-elif os.path.exists(backup_config):
-    config.read(backup_config)
+    config.read(default_config1)
+elif os.path.exists(backup_config1):
+    config.read(backup_config1)
+elif os.path.exists(backup_config2):
+    config.read(backup_config2)
 else:
     raise Exception("No config file exists for this component")
 
