@@ -69,14 +69,14 @@ This will launch NeuroNLP and start the connection between it and the Processor 
 
 FFBO components are configured using .ini files. If you are building and running Docker images on your local computer from the Github repository (including Docker Compose), you can configure the NLP Component via the './config.ini' file in the main directory of this repository. However, if you are downloading images directly from Docker Hub, you will need to create a '.ffbolab' folder in your computer's home directory. Into this directory, place a .ini config file referring to this component. This can be done in one of two ways. Either copy the default config file from the main directory of this repository via:
     
-    cp config.ini ~/.ffbolab/config/ffbo.nlp_component.ini
+    cp config.ini ~/.ffbo/config/ffbo.nlp_component.ini
     
 or, in the case that you don't have this repository installed, via:
     
-    wget -o ~/.ffbolab/config/ffbo.nlp_component.ini https://cdn.rawgit.com/jonmarty/ffbo.nlp_component/master/config.ini
+    wget -o ~/.ffbo/config/ffbo.nlp_component.ini https://cdn.rawgit.com/jonmarty/ffbo.nlp_component/master/config.ini
 
 Once you have configured the .ini file, you can run it with:
     
-    docker run -P -it --net ffbonet --name ffbo.nlp_component -v ~/.ffbo/config:~/config jonmarty/ffbo.nlp_component
+    docker run -P -it --net ffbonet --name ffbo.nlp_component -v ~/.ffbo/config:/config jonmarty/ffbo.nlp_component
     
 Or equivalently for other build methods. If you have configured a port, make sure to expose it by adding the '-p [INTERNAL PORT]:[EXTERNAL PORT]', where the internal port is the port you configured in the .ini file and the external port is the port on localhost that the output of the internal port is mapped to. Running without docker is the same process described above in the Manual Execution section.
