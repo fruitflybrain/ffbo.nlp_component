@@ -31,7 +31,7 @@ backup_config1 = os.path.join(root, "config", "ffbo.nlp_component.ini")
 backup_config2 = os.path.join(filepath, "..", "config.ini")
 config = ConfigParser()
 if os.path.exists(default_config):
-    config.read(default_config1)
+    config.read(default_config)
 elif os.path.exists(backup_config1):
     config.read(backup_config1)
 elif os.path.exists(backup_config2):
