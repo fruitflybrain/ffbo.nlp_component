@@ -47,6 +47,7 @@ RUN pip install -U datadiff
 RUN pip install pyOpenSSL
 RUN pip install service_identity
 RUN pip install configparser
+RUN pip install plac==0.9.6
 
 WORKDIR /quepy
 RUN python setup.py install
