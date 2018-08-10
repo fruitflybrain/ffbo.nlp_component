@@ -42,15 +42,18 @@ for config_file in config_files:
 if not configured:
     raise Exception("No config file exists for this component")
 
-user = config["UserInfo"]["user"]
-secret = config["UserInfo"]["secret"]
-ssl = eval(config["ServerInfo"]["ssl"])
-url = config["ServerInfo"]["url"]
-realm = config["ServerInfo"]["realm"]
-authentication = eval(config["ServerInfo"]["authentication"])
-debug = eval(config["DebugInfo"]["debug"])
-ca_cert_file = config["CertInfo"]["ca_cert_file"]
-intermediate_cert_file = config["CertInfo"]["intermediate_cert_file"]
+user = config["USER"]["user"]
+secret = config["USER"]["secret"]
+ssl = eval(config["AUTH"]["ssl"])
+websockets = "wss" if ssl else "ws"
+ip = config["SERVER"]["ip"]
+port = config["NLP"]["port"]
+url = "%(ws)s://%(ip)s:%(port)s/ws" % {"ws":websockets, "ip":ip, "port":port}
+realm = config["SERVER"]["realm"]
+authentication = eval(config["AUTH"]["authentication"])
+debug = eval(config["DEBUG"]["debug"])
+ca_cert_file = config["AUTH"]["ca_cert_file"]
+intermediate_cert_file = config["AUTH"]["intermediate_cert_file"]
 
 class AppSession(ApplicationSession):
 
