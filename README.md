@@ -2,9 +2,9 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/flybrainobs.svg?style=social&label=Follow)](https://twitter.com/flybrainobs) ![license](https://img.shields.io/github/license/fruitflybrain/ffbo.nlp_component.svg?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/fruitflybrain/ffbo.nlp_component.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/fruitflybrain/ffbo.nlp_component.svg?style=flat-square)](https://hub.docker.com/r/fruitflybrain/ffbo.nlp_component)
 ## Overview
 
-This package contains the NLP component for the [FFBO architecture](http://fruitflybrain.org/). NeuroNLP provides an interface to translate Natural language queries, into a JSON format consumable by the [Neuroarch](http://github.com/fruitflybrain/ffbo.neuroarch_component) API, which is then used to retrieve neurophysiological data and 3D representations of neurons visualized by the [Processor](http://github.com/fruitflybrain/ffbo.processor) component.
+This package contains the NLP component in the backend of the system architecture of the [Fruit Fly Brain Observatory](http://fruitflybrain.org/). The NLP component processes natural language queries into structured queries that can be used on [NeuroArch Database](http://dx.doi.org/10.5281/zenodo.44225).
 
-__NOTE__ This component requires an instance of the FFBO processor component to be running and knowledge of the processor IP address. This is accomplished by setting up and attaching this image to the 'ffbonet' network, which is described below in the __Installation and Execution__ section.
+__NOTE__ This component requires an instance of the FFBO processor component to be running and knowledge of the processor IP address (if FFBO processor is running on a different machine). This is accomplished by setting up and attaching this image to the 'ffbonet' network, which is described below in the __Installation and Execution__ section.
 
 ## Installation and Execution
 
@@ -30,7 +30,7 @@ Installing via the [Docker Hub](https://hub.docker.com/r/fruitflybrain/ffbo.nlp_
 
 Once the image is installed, you can run it in a container:
 
-    docker run -P -t --net ffbonet --name ffbo.nlp_component fruitflybrain/ffbo.nlp_component
+    docker run -t --net ffbonet --name ffbo.nlp_component fruitflybrain/ffbo.nlp_component
 
 
 ### Github with Docker Compose
@@ -52,7 +52,7 @@ Note that the container can be both built and run with the following command:
 
 Downloading and building the repository and image are accomplished the same as in the above section. Accessing the bash interface for the container can be accomplished with:
 
-    docker run -P -it --net ffbonet --name ffbo.nlp_component ffbo/nlp_component:develop bash
+    docker run -P -it --net ffbonet --name ffbo.nlp_component fruitflybrain/nlp_component:local bash
 
 Running the server is done with:
 
@@ -63,7 +63,7 @@ or
     export PYTHONPATH=/neuroarch_nlp:/quepy:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/dist-packages/:$PYTHONPATH
     python nlp_component.py --url ws://ffbo.processor:8081/ws --no-ssl
 
-This will launch NeuroNLP and start the connection between it and the Processor component.
+This will launch NLP component and start the connection between it and the Processor component.
 
 ### Configuration
 
@@ -77,6 +77,6 @@ or, in the case that you don't have this repository installed, via:
 
 Once you have configured the .ini file, you can run it with:
     
-    docker run -P -it --net ffbonet --name ffbo.nlp_component -v ~/.ffbo/config:/config fruitflybrain/ffbo.nlp_component
+    docker run -P -it --net ffbonet --name ffbo.nlp_component -v ~/.ffbo/config:/config fruitflybrain/ffbo.nlp_component:local
     
 Or equivalently for other build methods. If you have configured a port, make sure to expose it by adding the '-p [INTERNAL PORT]:[EXTERNAL PORT]', where the internal port is the port you configured in the .ini file and the external port is the port on localhost that the output of the internal port is mapped to. Running without docker is the same process described above in the Manual Execution section.
