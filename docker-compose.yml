@@ -6,7 +6,7 @@ services:
         build:
             context: .
             dockerfile: ./Dockerfile
-        image: ffbo/nlp_component:develop
+        image: ffbo/ffbo.nlp_component
         networks:
             - ffbonet
 networks:
