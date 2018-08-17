@@ -1,8 +1,8 @@
 # FFBO NeuroNLP Component
-[![Twitter Follow](https://img.shields.io/twitter/follow/flybrainobs.svg?style=social&label=Follow)](https://twitter.com/flybrainobs) ![license](https://img.shields.io/github/license/jonmarty/ffbo.nlp_component.svg?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/jonmarty/ffbo.nlp_component.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/jonmarty/ffbo.nlp_component.svg?style=flat-square)](https://hub.docker.com/r/jonmarty/ffbo.nlp_component)
+[![Twitter Follow](https://img.shields.io/twitter/follow/flybrainobs.svg?style=social&label=Follow)](https://twitter.com/flybrainobs) ![license](https://img.shields.io/github/license/fruitflybrain/ffbo.nlp_component.svg?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/fruitflybrain/ffbo.nlp_component.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/fruitflybrain/ffbo.nlp_component.svg?style=flat-square)](https://hub.docker.com/r/fruitflybrain/ffbo.nlp_component)
 ## Overview
 
-This package contains the NLP component for the [FFBO architecture](http://fruitflybrain.org/). NeuroNLP provides an interface to translate Natural language queries, into a JSON format consumable by the [Neuroarch](http://github.com/jonmarty/ffbo.neuroarch_component) API, which is then used to retrieve neurophysiological data and 3D representations of neurons visualized by the [Processor](http://github.com/jonmarty/ffbo.processor) component.
+This package contains the NLP component for the [FFBO architecture](http://fruitflybrain.org/). NeuroNLP provides an interface to translate Natural language queries, into a JSON format consumable by the [Neuroarch](http://github.com/fruitflybrain/ffbo.neuroarch_component) API, which is then used to retrieve neurophysiological data and 3D representations of neurons visualized by the [Processor](http://github.com/fruitflybrain/ffbo.processor) component.
 
 __NOTE__ This component requires an instance of the FFBO processor component to be running and knowledge of the processor IP address. This is accomplished by setting up and attaching this image to the 'ffbonet' network, which is described below in the __Installation and Execution__ section.
 
@@ -24,20 +24,20 @@ Please note that the 'bridge' driver provides a network that is limited to the h
 
 ### Docker Hub
 
-Installing via the [Docker Hub](https://hub.docker.com/r/jonmarty/ffbo.nlp_component) repository is recommended for non-developers. The image is installed directly onto your local Docker daemon, from which you can run it in a container. Installation is as follows:
+Installing via the [Docker Hub](https://hub.docker.com/r/fruitflybrain/ffbo.nlp_component) repository is recommended for non-developers. The image is installed directly onto your local Docker daemon, from which you can run it in a container. Installation is as follows:
 
-    docker pull jonmarty/ffbo.nlp_component
+    docker pull fruitflybrain/ffbo.nlp_component
 
 Once the image is installed, you can run it in a container:
 
-    docker run -P -t --net ffbonet --name ffbo.nlp_component jonmarty/ffbo.nlp_component
+    docker run -P -t --net ffbonet --name ffbo.nlp_component fruitflybrain/ffbo.nlp_component
 
 
 ### Github with Docker Compose
 
-Installing via the [Github](https://github.com/jonmarty/ffbo.nlp_component) repository is recommended for developers.The code is downloaded as follows:
+Installing via the [Github](https://github.com/fruitflybrain/ffbo.nlp_component) repository is recommended for developers.The code is downloaded as follows:
 
-    git clone https://github.com/jonmarty/ffbo.nlp_component
+    git clone https://github.com/fruitflybrain/ffbo.nlp_component
 
 Building and running the repository is simplified with Docker Compose, which stores the configuration for a service (such as network and name for the container and the Dockerfile to build from) in a docker-compose.yml file, simplifying the command-line call. Building and running the Docker image can be accomplished with:
 
@@ -73,10 +73,10 @@ FFBO components are configured using .ini files. If you are building and running
     
 or, in the case that you don't have this repository installed, via:
     
-    wget -o ~/.ffbo/config/ffbo.nlp_component.ini https://cdn.rawgit.com/jonmarty/ffbo.nlp_component/master/config.ini
+    wget -o ~/.ffbo/config/ffbo.nlp_component.ini https://cdn.rawgit.com/fruitflybrain/ffbo.nlp_component/master/config.ini
 
 Once you have configured the .ini file, you can run it with:
     
-    docker run -P -it --net ffbonet --name ffbo.nlp_component -v ~/.ffbo/config:/config jonmarty/ffbo.nlp_component
+    docker run -P -it --net ffbonet --name ffbo.nlp_component -v ~/.ffbo/config:/config fruitflybrain/ffbo.nlp_component
     
 Or equivalently for other build methods. If you have configured a port, make sure to expose it by adding the '-p [INTERNAL PORT]:[EXTERNAL PORT]', where the internal port is the port you configured in the .ini file and the external port is the port on localhost that the output of the internal port is mapped to. Running without docker is the same process described above in the Manual Execution section.
