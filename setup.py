@@ -63,6 +63,7 @@ if __name__ == "__main__":
         zip_safe = False,
         include_package_data=True,
         install_requires = [
+            'plac < 1.0.0',
             'twisted >= 15.5.0',
             'quepy >= 0.2',
             'nlp_component >= 0.2.0',

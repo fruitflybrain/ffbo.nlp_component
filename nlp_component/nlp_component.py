@@ -1,3 +1,4 @@
+
 from twisted.internet.defer import inlineCallbacks, returnValue
 from twisted.logger import Logger
 from twisted.internet import threads
@@ -19,7 +20,45 @@ from neuroarch_nlp.interface import Translator
 
 from autobahn.wamp import auth
 
-from config import *
+from configparser import ConfigParser
+
+# Grab configuration from file
+root = os.path.expanduser("/")
+home = os.path.expanduser("~")
+filepath = os.path.dirname(os.path.abspath(__file__))
+config_files = []
+config_files.append(os.path.join(home, "config", "ffbo.nlp_component.ini"))
+config_files.append(os.path.join(root, "config", "ffbo.nlp_component.ini"))
+config_files.append(os.path.join(home, "config", "config.ini"))
+config_files.append(os.path.join(root, "config", "config.ini"))
+config_files.append(os.path.join(filepath, "config.ini"))
+config = ConfigParser()
+configured = False
+file_type = 0
+for config_file in config_files:
+    if os.path.exists(config_file):
+        config.read(config_file)
+        configured = True
+        break
+    file_type += 1
+if not configured:
+    raise Exception("No config file exists for this component")
+
+user = config["USER"]["user"]
+secret = config["USER"]["secret"]
+ssl = eval(config["AUTH"]["ssl"])
+websockets = "wss" if ssl else "ws"
+if "ip" in config["SERVER"]:
+    ip = config["SERVER"]["ip"]
+else:
+    ip = "ffbo.processor"
+port = config["NLP"]["expose-port"]
+url = "%(ws)s://%(ip)s:%(port)s/ws" % {"ws":websockets, "ip":ip, "port":port}
+realm = config["SERVER"]["realm"]
+authentication = eval(config["AUTH"]["authentication"])
+debug = eval(config["DEBUG"]["debug"])
+ca_cert_file = config["AUTH"]["ca_cert_file"]
+intermediate_cert_file = config["AUTH"]["intermediate_cert_file"]
 
 class AppSession(ApplicationSession):
 
@@ -157,5 +196,4 @@ if __name__ == '__main__':
         # now actually run a WAMP client using our session class ClientSession
         runner = ApplicationRunner(url=args.url, realm=args.realm, extra=extra)
 
-    runner.run(AppSession)
-    
+    runner.run(AppSession, auto_reconnect=True)
