@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+    ffbo.nlp_component:
+        container_name: ffbo.nlp_component
+        tty: true
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        image: fruitflybrain/ffbo.nlp_component:local
+        networks:
+            - ffbonet
+networks:
+    ffbonet:
+        external: true
