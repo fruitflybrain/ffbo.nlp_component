@@ -52,8 +52,8 @@ if "ip" in config["SERVER"]:
     ip = config["SERVER"]["ip"]
 else:
     ip = "ffbo.processor"
-port = config["NLP"]["expose-port"]
-url = "%(ws)s://%(ip)s:%(port)s/ws" % {"ws":websockets, "ip":ip, "port":port}
+port = "{}{}".format(2,config["UNI"]['digits'])
+url =  "{}://{}:{}/ws".format(websockets, ip, port)
 realm = config["SERVER"]["realm"]
 authentication = eval(config["AUTH"]["authentication"])
 debug = eval(config["DEBUG"]["debug"])
@@ -63,17 +63,17 @@ intermediate_cert_file = config["AUTH"]["intermediate_cert_file"]
 class AppSession(ApplicationSession):
 
     log = Logger()
-    
+
     def onConnect(self):
         if self.config.extra['auth']:
             self.join(self.config.realm, [u"wampcra"], user)
         else:
             self.join(self.config.realm, [], user)
- 
+
     def onChallenge(self, challenge):
         if challenge.method == u"wampcra":
             #print("WAMP-CRA challenge received: {}".format(challenge))
-            
+
             if u'salt' in challenge.extra:
                 # salted secret
                 key = auth.derive_key(secret,
@@ -83,22 +83,22 @@ class AppSession(ApplicationSession):
             else:
                 # plain, unsalted secret
                 key = secret
-                
+
             # compute signature for challenge, using the key
             signature = auth.compute_wcs(key, challenge.extra['challenge'])
-            
+
             # return the signature to the router for verification
             return signature
-        
+
         else:
             raise Exception("Invalid authmethod {}".format(challenge.method))
-                                    
+
     @inlineCallbacks
     def onJoin(self, details):
         server = Translator()
-        
+
         translators = {}
-        
+
         self.server_config = {'name': 'nlp_server'}
 
         #@inlineCallbacks
@@ -137,16 +137,16 @@ class AppSession(ApplicationSession):
 
         yield self.subscribe(register_component, six.u('ffbo.processor.connected'))
         self.log.info("subscribed to topic 'ffbo.processor.connected'")
-        
+
         register_component()
 
 if __name__ == '__main__':
     from twisted.internet._sslverify import OpenSSLCertificateAuthorities
     from twisted.internet.ssl import CertificateOptions
     import OpenSSL.crypto
-    
-                                           
-    
+
+
+
     # parse command line parameters
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug output.')
@@ -165,10 +165,10 @@ if __name__ == '__main__':
     parser.set_defaults(ssl=ssl)
     parser.set_defaults(authentication=authentication)
     parser.set_defaults(debug=debug)
-    
+
     args = parser.parse_args()
 
-    
+
     # start logging
     if args.debug:
         txaio.start_logging(level='debug')
@@ -182,10 +182,10 @@ if __name__ == '__main__':
         st_cert=open(args.ca_cert_file, 'rt').read()
         c=OpenSSL.crypto
         ca_cert=c.load_certificate(c.FILETYPE_PEM, st_cert)
-        
+
         st_cert=open(args.intermediate_cert_file, 'rt').read()
         intermediate_cert=c.load_certificate(c.FILETYPE_PEM, st_cert)
-        
+
         certs = OpenSSLCertificateAuthorities([ca_cert, intermediate_cert])
         ssl_con = CertificateOptions(trustRoot=certs)
 
