@@ -52,7 +52,7 @@ if "ip" in config["SERVER"]:
     ip = config["SERVER"]["ip"]
 else:
     ip = "ffbo.processor"
-port = "{}{}".format(2,config["UNI"]['digits'])
+port = "{}{}".format(1,config["ID"]['digits'])
 url =  "{}://{}:{}/ws".format(websockets, ip, port)
 realm = config["SERVER"]["realm"]
 authentication = eval(config["AUTH"]["authentication"])
