@@ -20,7 +20,7 @@ RUN apt-get install -y --force-yes --force-yes python python-dev python-distribu
 RUN pip install numpy==1.14.5
 
 # install Autobahn|Python
-RUN pip install -U pip && pip install autobahn[twisted]
+RUN pip install -U pip && pip install autobahn[twisted]==18.12.1
 
 # Install quepy dependencies
 RUN pip install pandas
