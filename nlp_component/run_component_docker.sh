@@ -1,6 +1,9 @@
 export PYTHONPATH=/neuroarch_nlp:/quepy:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/dist-packages/:$PYTHONPATH
 
 BASEDIR=$(dirname "$0")
+
+cd /neuroarch_nlp
+git pull
 cd $BASEDIR
 
 if [ $# -eq 0 ]; then
@@ -18,5 +21,3 @@ if [ $# -eq 2 ]; then
     echo "Unrecognised argument"
   fi
 fi
-
-
