@@ -2,8 +2,12 @@ export PYTHONPATH=/neuroarch_nlp:/quepy:/usr/local/lib/python2.7/site-packages:/
 
 BASEDIR=$(dirname "$0")
 
+cd /nlp_component
+git pull
 cd /neuroarch_nlp
 git pull
+
+
 cd $BASEDIR
 
 if [ $# -eq 0 ]; then
