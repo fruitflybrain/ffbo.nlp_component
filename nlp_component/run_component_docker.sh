@@ -1,12 +1,12 @@
-export PYTHONPATH=/neuroarch_nlp:/quepy:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/dist-packages/:$PYTHONPATH
 
 BASEDIR=$(dirname "$0")
+
+export PYTHONPATH=/neuroarch_nlp:/quepy:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/dist-packages/:$PYTHONPATH
 
 cd /nlp_component
 git pull
 cd /neuroarch_nlp
 git pull
-
 
 cd $BASEDIR
 
