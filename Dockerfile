@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y apt-transport-https
 RUN apt-get install git
 
 # Mount volumes
-RUN git clone --single-branch -b feature/hemibrain https://github.com/fruitflybrain/ffbo.nlp_component /nlp_component
+RUN git clone --single-branch -b hemibrain https://github.com/fruitflybrain/ffbo.nlp_component /nlp_component
 RUN git clone https://github.com/fruitflybrain/ffbo.neuroarch_nlp /neuroarch_nlp
 RUN git clone https://github.com/fruitflybrain/quepy /quepy
 
