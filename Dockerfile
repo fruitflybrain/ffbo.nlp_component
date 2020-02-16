@@ -8,7 +8,7 @@ RUN apt-get install git
 
 # Mount volumes
 RUN git clone --single-branch -b hemibrain https://github.com/fruitflybrain/ffbo.nlp_component /nlp_component
-RUN git clone https://github.com/fruitflybrain/ffbo.neuroarch_nlp /neuroarch_nlp
+RUN git clone --single-branch -b hemibrain https://github.com/fruitflybrain/ffbo.neuroarch_nlp /neuroarch_nlp
 RUN git clone https://github.com/fruitflybrain/quepy /quepy
 
 # Set environment variables
