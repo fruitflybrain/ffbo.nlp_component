@@ -1,14 +1,14 @@
 # Initialize image
 FROM python:2
-MAINTAINER Jonathan Marty <jonathan.n.marty@gmail.com>
+MAINTAINER Yiyin Zhou <yiyin@ee.columbia.edu>
 RUN apt-get update && apt-get install -y apt-transport-https
 
 # Install git
 RUN apt-get install git
 
 # Mount volumes
-RUN git clone --single-branch -b hemibrain https://github.com/fruitflybrain/ffbo.nlp_component /nlp_component
-RUN git clone --single-branch -b hemibrain https://github.com/fruitflybrain/ffbo.neuroarch_nlp /neuroarch_nlp
+RUN git clone --single-branch -b hemibrain_vnc https://github.com/fruitflybrain/ffbo.nlp_component /nlp_component
+RUN git clone https://github.com/fruitflybrain/ffbo.neuroarch_nlp /neuroarch_nlp
 RUN git clone https://github.com/fruitflybrain/quepy /quepy
 
 # Set environment variables
