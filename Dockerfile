@@ -1,6 +1,6 @@
 # Initialize image
 FROM python:2
-MAINTAINER Jonathan Marty <jonathan.n.marty@gmail.com>
+MAINTAINER Yiyin Zhou <yiyin@ee.columbia.edu>
 RUN apt-get update && apt-get install -y apt-transport-https
 
 # Install git
