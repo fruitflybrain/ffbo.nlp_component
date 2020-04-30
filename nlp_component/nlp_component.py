@@ -51,7 +51,7 @@ websockets = "wss" if ssl else "ws"
 if "ip" in config["SERVER"]:
     ip = config["SERVER"]["ip"]
 else:
-    ip = "ffbo.processor"
+    ip = "localhost"
 port = config["NLP"]["expose-port"]
 url = "%(ws)s://%(ip)s:%(port)s/ws" % {"ws":websockets, "ip":ip, "port":port}
 realm = config["SERVER"]["realm"]
