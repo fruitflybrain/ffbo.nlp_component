@@ -110,7 +110,7 @@ class AppSession(ApplicationSession):
 
         translators = {}
 
-        self.server_config = {'name': 'nlp_server'}
+        self.server_config = {'name': self.app_name}
 
         #@inlineCallbacks
         def nlp_query(query,language='en'):
