@@ -79,7 +79,8 @@ class AppSession(ApplicationSession):
         else:
             self.join(self.config.realm, [], user)
 
-        self.app_name = self.config.extra['app']
+        self.app_name = str(self.config.extra['app'])
+        self.dataset = str(self.config.extra['dataset'])
 
     def onChallenge(self, challenge):
         if challenge.method == "wampcra":
@@ -110,7 +111,8 @@ class AppSession(ApplicationSession):
 
         translators = {}
 
-        self.server_config = {'name': self.app_name}
+        self.server_config = {six.u('name'): six.u(self.app_name),
+                              six.u('dataset'): six.u(self.dataset)}
 
         #@inlineCallbacks
         def nlp_query(query,language='en'):
@@ -138,7 +140,7 @@ class AppSession(ApplicationSession):
             try:
                 # registered the procedure we would like to call
                 res = yield self.call(six.u('ffbo.server.register'), details.session,
-                                      six.u('nlp'), six.u(self.server_config['name']))
+                                      six.u('nlp'), self.server_config)
                 self.log.info("register new server called with result: {result}",
                                                     result=res)
 
@@ -278,6 +280,8 @@ if __name__ == '__main__':
                         help='The router URL (defaults to value from config.py)')
     parser.add_argument('--app', dest='app', type=six.text_type, default='hemibrain',
                         help='name of the application in neuroarch_nlp')
+    parser.add_argument('--dataset', dest='dataset', type=six.text_type, default=None,
+                        help='name of dataset, default to the same app name')
     parser.add_argument('--realm', dest='realm', type=six.text_type, default=realm,
                         help='The realm to join (defaults to value from config.py).')
     parser.add_argument('--ca_cert', dest='ca_cert_file', type=six.text_type,
@@ -302,7 +306,11 @@ if __name__ == '__main__':
         txaio.start_logging(level='info')
 
     # any extra info we want to forward to our ClientSession (in self.config.extra)
-    extra = {'auth': args.authentication, 'app': args.app}
+    if args.dataset is None:
+        dataset = args.app
+    else:
+        dataset = args.dataset
+    extra = {'auth': args.authentication, 'app': args.app, 'dataset': dataset}
 
     if args.ssl:
         st_cert=open(args.ca_cert_file, 'rt').read()
