@@ -79,6 +79,8 @@ class AppSession(ApplicationSession):
         else:
             self.join(self.config.realm, [], user)
 
+        self.app_name = self.config.extra['app']
+
     def onChallenge(self, challenge):
         if challenge.method == "wampcra":
             #print("WAMP-CRA challenge received: {}".format(challenge))
@@ -104,7 +106,7 @@ class AppSession(ApplicationSession):
 
     @inlineCallbacks
     def onJoin(self, details):
-        server = Translator()
+        server = Translator(self.app_name)
 
         translators = {}
 
@@ -274,6 +276,8 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug output.')
     parser.add_argument('--url', dest='url', type=six.text_type, default=url,
                         help='The router URL (defaults to value from config.py)')
+    parser.add_argument('--app', dest='app', type=six.text_type, default='hemibrain',
+                        help='name of the application in neuroarch_nlp')
     parser.add_argument('--realm', dest='realm', type=six.text_type, default=realm,
                         help='The realm to join (defaults to value from config.py).')
     parser.add_argument('--ca_cert', dest='ca_cert_file', type=six.text_type,
@@ -298,7 +302,7 @@ if __name__ == '__main__':
         txaio.start_logging(level='info')
 
     # any extra info we want to forward to our ClientSession (in self.config.extra)
-    extra = {'auth': args.authentication}
+    extra = {'auth': args.authentication, 'app': args.app}
 
     if args.ssl:
         st_cert=open(args.ca_cert_file, 'rt').read()
