@@ -1,28 +1,26 @@
 
 import pickle
+import os
+import argparse
+import six
+import txaio
+import json
+from configparser import ConfigParser
 
 from twisted.internet.defer import inlineCallbacks, returnValue
 from twisted.logger import Logger
 from twisted.internet import threads
 
+import autobahn
 from autobahn.twisted.util import sleep
 from autobahn.twisted.wamp import ApplicationSession, ApplicationRunner
 from autobahn.wamp.exception import ApplicationError
 from autobahn.websocket.protocol import WebSocketClientFactory
 from autobahn.wamp.types import RegisterOptions
-
-import os
-import argparse
-import six
-import txaio
-
-import json
+from autobahn.wamp import auth
 
 from neuroarch_nlp.interface import Translator
 
-from autobahn.wamp import auth
-
-from configparser import ConfigParser
 
 # Grab configuration from file
 root = os.path.expanduser("/")
@@ -112,7 +110,8 @@ class AppSession(ApplicationSession):
         translators = {}
 
         self.server_config = {six.u('name'): six.u(self.app_name),
-                              six.u('dataset'): six.u(self.dataset)}
+                              six.u('dataset'): six.u(self.dataset),
+                              six.u('autobahn'): six.u(autobahn.__version__)}
 
         #@inlineCallbacks
         def nlp_query(query,language='en'):
