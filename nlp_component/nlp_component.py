@@ -111,7 +111,7 @@ class AppSession(ApplicationSession):
 
         self.server_config = {six.u('name'): six.u(self.app_name),
                               six.u('dataset'): six.u(self.dataset),
-                              six.u('autobahn'): six.u(autobahn.__version__)}
+                              six.u('autobahn'): autobahn.__version__}
 
         #@inlineCallbacks
         def nlp_query(query,language='en'):
