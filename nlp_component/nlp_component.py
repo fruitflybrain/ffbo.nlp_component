@@ -20,6 +20,7 @@ from autobahn.wamp.types import RegisterOptions
 from autobahn.wamp import auth
 
 from neuroarch_nlp.interface import Translator
+from version import __version__
 
 
 # Grab configuration from file
@@ -111,7 +112,8 @@ class AppSession(ApplicationSession):
 
         self.server_config = {six.u('name'): six.u(self.app_name),
                               six.u('dataset'): six.u(self.dataset),
-                              six.u('autobahn'): autobahn.__version__}
+                              six.u('autobahn'): autobahn.__version__,
+                              six.u('version'): __version__}
 
         #@inlineCallbacks
         def nlp_query(query,language='en'):
