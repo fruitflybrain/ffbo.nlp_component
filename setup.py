@@ -63,12 +63,13 @@ if __name__ == "__main__":
         zip_safe = False,
         include_package_data=True,
         install_requires = [
+            'autobahn[twisted]',
             'plac < 1.0.0',
-            'twisted >= 15.5.0',
             'quepy >= 0.3.0',
             'neuroarch_nlp >= 0.3.0',
             'fuzzywuzzy >= 0.12.0',
-            'python-Levenshtein >= 0.12.0'
+            'python-Levenshtein >= 0.12.0',
+            'configparser'
         ],
         dependency_links=['https://github.com/fruitflybrain/quepy/archive/v0.3.0.tar.gz#egg=quepy-0.3.0',
                           'https://github.com/fruitflybrain/ffbo.neuroarch_nlp/archive/v0.3.0.tar.gz#egg=neuroarch_nlp-0.3.0'],
