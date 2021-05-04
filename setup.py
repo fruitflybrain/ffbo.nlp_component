@@ -63,7 +63,7 @@ if __name__ == "__main__":
         zip_safe = False,
         include_package_data=True,
         install_requires = [
-            'autobahn[twisted]',
+            'autobahn[twisted] <= 19.11.2',
             'plac < 1.0.0',
             'quepy >= 0.3.0',
             'neuroarch_nlp >= 0.3.0',
