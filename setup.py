@@ -69,9 +69,9 @@ if __name__ == "__main__":
             'neuroarch_nlp >= 0.3.0',
             'fuzzywuzzy >= 0.12.0',
             'python-Levenshtein >= 0.12.0',
-            'configparser'
+            'configparser < 5'
         ],
-        dependency_links=['https://github.com/fruitflybrain/quepy/archive/v0.3.0.tar.gz#egg=quepy-0.3.0',
-                          'https://github.com/fruitflybrain/ffbo.neuroarch_nlp/archive/v0.3.0.tar.gz#egg=neuroarch_nlp-0.3.0'],
+        dependency_links=['https://github.com/fruitflybrain/quepy/tarball/master#egg=quepy-0.3.0',
+                          'https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/master#egg=neuroarch_nlp-0.3.0'],
         eager_resources = ['languages/es.json', 'languages/ro.json','languages/fr.json']
     )
