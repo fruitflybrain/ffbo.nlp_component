@@ -65,8 +65,8 @@ if __name__ == "__main__":
         install_requires = [
             'autobahn[twisted] <= 19.11.2',
             'plac < 1.0.0',
-            'quepy >= 0.3.0',
-            'neuroarch_nlp >= 0.3.0',
+            'quepy @ https://github.com/fruitflybrain/quepy/tarball/master#egg=quepy-0.3.0',
+            'neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/master#egg=neuroarch_nlp-0.3.0',
             'fuzzywuzzy >= 0.12.0',
             'python-Levenshtein >= 0.12.0',
             'configparser < 5'
