@@ -80,6 +80,7 @@ class AppSession(ApplicationSession):
 
         self.app_name = str(self.config.extra['app'])
         self.dataset = str(self.config.extra['dataset'])
+        self.name = str(self.config.extra['name'])
 
     def onChallenge(self, challenge):
         if challenge.method == "wampcra":
@@ -110,7 +111,7 @@ class AppSession(ApplicationSession):
 
         translators = {}
 
-        self.server_config = {six.u('name'): six.u(self.app_name),
+        self.server_config = {six.u('name'): six.u(self.name),
                               six.u('dataset'): six.u(self.dataset),
                               six.u('autobahn'): autobahn.__version__,
                               six.u('version'): __version__}
@@ -283,6 +284,8 @@ if __name__ == '__main__':
                         help='name of the application in neuroarch_nlp')
     parser.add_argument('--dataset', dest='dataset', type=six.text_type, default=None,
                         help='name of dataset, default to the same app name')
+    parser.add_argument('--name', dest = 'name', type = six.text_type, default=None,
+                        help='name of the server, default to the dataset name')
     parser.add_argument('--realm', dest='realm', type=six.text_type, default=realm,
                         help='The realm to join (defaults to value from config.py).')
     parser.add_argument('--ca_cert', dest='ca_cert_file', type=six.text_type,
@@ -311,7 +314,13 @@ if __name__ == '__main__':
         dataset = args.app
     else:
         dataset = args.dataset
-    extra = {'auth': args.authentication, 'app': args.app, 'dataset': dataset}
+
+    if args.name is None:
+        name = dataset
+    else:
+        name = args.name
+
+    extra = {'auth': args.authentication, 'app': args.app, 'dataset': dataset, 'name': name}
 
     if args.ssl:
         st_cert=open(args.ca_cert_file, 'rt').read()
