@@ -1,14 +1,14 @@
 # Initialize image
 FROM python:2
-MAINTAINER Jonathan Marty <jonathan.n.marty@gmail.com>
+MAINTAINER Yiyin Zhou <yiyin@ee.columbia.edu>
 RUN apt-get update && apt-get install -y apt-transport-https
 
 # Install git
 RUN apt-get install git
 
 # Mount volumes
-ADD . /nlp_component
-RUN git clone https://github.com/fruitflybrain/ffbo.neuroarch_nlp /neuroarch_nlp
+RUN git clone --single-branch -b hemibrain https://github.com/fruitflybrain/ffbo.nlp_component /nlp_component
+RUN git clone --single-branch -b hemibrain https://github.com/fruitflybrain/ffbo.neuroarch_nlp /neuroarch_nlp
 RUN git clone https://github.com/fruitflybrain/quepy /quepy
 
 # Set environment variables
@@ -20,7 +20,7 @@ RUN apt-get install -y --force-yes --force-yes python python-dev python-distribu
 RUN pip install numpy==1.14.5
 
 # install Autobahn|Python
-RUN pip install -U pip && pip install autobahn[twisted]
+RUN pip install -U pip && pip install autobahn[twisted]==18.12.1
 
 # Install quepy dependencies
 RUN pip install pandas
