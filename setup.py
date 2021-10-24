@@ -15,7 +15,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'nlp_component'
-VERSION =            '0.3.0'
+VERSION =            '0.4.0'
 AUTHOR =             'Adam Tomkins, Nikul Ukani, Yiyin Zhou'
 AUTHOR_EMAIL =       'a.tomkins@shef.ac.uk, nikul@ee.columbia.edu, yiyin@ee.columbia.edu'
 MAINTAINER =         'Yiyin Zhou'
@@ -63,15 +63,13 @@ if __name__ == "__main__":
         zip_safe = False,
         include_package_data=True,
         install_requires = [
-            'autobahn[twisted] <= 19.11.2',
-            'plac < 1.0.0',
-            'quepy @ https://github.com/fruitflybrain/quepy/tarball/master#egg=quepy-0.3.0',
-            'neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/master#egg=neuroarch_nlp-0.3.0',
-            'fuzzywuzzy >= 0.12.0',
-            'python-Levenshtein >= 0.12.0',
-            'configparser < 5'
+            'autobahn[twisted]',
+            'plac',
+            'quepy @ https://github.com/fruitflybrain/quepy/tarball/develop#egg=quepy-0.4.0',
+            'neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/develop#egg=neuroarch_nlp-0.4.0',
+            'configparser'
         ],
-        dependency_links=['https://github.com/fruitflybrain/quepy/tarball/master#egg=quepy-0.3.0',
-                          'https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/master#egg=neuroarch_nlp-0.3.0'],
+        dependency_links=['https://github.com/fruitflybrain/quepy/tarball/develop#egg=quepy-0.4.0',
+                          'https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/develop#egg=neuroarch_nlp-0.4.0'],
         eager_resources = ['languages/es.json', 'languages/ro.json','languages/fr.json']
     )
