@@ -67,7 +67,7 @@ if __name__ == "__main__":
             'plac',
             'quepy @ https://github.com/fruitflybrain/quepy/tarball/develop#egg=quepy-0.4.0',
             'neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/develop#egg=neuroarch_nlp-0.4.0',
-            'refo @ https://github.com/fruitflybrain/refo/#egg=refo-0.14',
+            'refo @ https://github.com/fruitflybrain/refo/tarball/master#egg=refo-0.14',
             'configparser'
         ],
         dependency_links=['https://github.com/fruitflybrain/quepy/tarball/develop#egg=quepy-0.4.0',
