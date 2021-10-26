@@ -74,3 +74,4 @@ if __name__ == "__main__":
                           'https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/develop#egg=neuroarch_nlp-0.4.0',
                           'https://github.com/fruitflybrain/refo/tarball/master#egg=refo-0.14'],
         eager_resources = ['languages/es.json', 'languages/ro.json','languages/fr.json']
+    )
