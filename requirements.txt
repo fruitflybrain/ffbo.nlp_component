@@ -53,7 +53,7 @@ sputnik==0.9.3
 thinc==6.2.0
 toolz==0.10.0
 tqdm==4.57.0
-Twisted==20.3.0
+Twisted==22.1.0
 txaio==18.8.1
 typing==3.7.4.3
 ujson==2.0.3
