@@ -1,4 +1,5 @@
 
+import sys, traceback
 import pickle
 import os
 import argparse
@@ -21,7 +22,6 @@ from autobahn.wamp import auth
 
 from neuroarch_nlp.interface import Translator
 from version import __version__
-
 
 # Grab configuration from file
 root = os.path.expanduser("/")
@@ -81,6 +81,7 @@ class AppSession(ApplicationSession):
         self.app_name = str(self.config.extra['app'])
         self.dataset = str(self.config.extra['dataset'])
         self.name = str(self.config.extra['name'])
+        self.use_drosobot = self.config.extra['drosobot']
 
     def onChallenge(self, challenge):
         if challenge.method == "wampcra":
@@ -107,28 +108,68 @@ class AppSession(ApplicationSession):
 
     @inlineCallbacks
     def onJoin(self, details):
-        server = Translator(self.app_name)
-
+        nlp_server = Translator(self.app_name)
         translators = {}
-
+        if self.use_drosobot:
+            from drosobot.drosobot import QueryEngine
+            drosobot_server = QueryEngine()
+            drosobot_server.prepare()
+        
         self.server_config = {six.u('name'): six.u(self.name),
                               six.u('dataset'): six.u(self.dataset),
                               six.u('autobahn'): autobahn.__version__,
                               six.u('version'): __version__}
 
-        #@inlineCallbacks
+        @inlineCallbacks
         def nlp_query(query,language='en'):
             self.log.info("nlp_query() called with query {query} with supplied language {language} " , language=language, query=query)
-            if language in  translators:
-                # Translate to English
-                query = translators[language](query)
-                self.log.info("nlp_query() detected language {language}. Query translated to: {query}", language=language, query=query)
-            else:
-                # assume English. This will cover English queries tagged as a crazy language.
-                pass
 
-            res = server.nlp_query(query)
-            return res
+            try:
+                if self.use_drosobot:
+                    if query.startswith('!'):
+                        res = yield threads.deferToThread(drosobot_server.query_interpreter, query)
+                        if res is None:
+                            res = {}
+                        else:
+                            res['engine'] = 'drosobot'
+                    else:
+                        if language in translators:
+                            # Translate to English
+                            query = translators[language](query)
+                            self.log.info("nlp_query() detected language {language}. Query translated to: {query}", language=language, query=query)
+                        else:
+                            # assume English. This will cover English queries tagged as a crazy language.
+                            pass
+
+                        res = yield threads.deferToThread(nlp_server.nlp_query, query)
+                        if not len(res):
+                            res = yield threads.deferToThread(drosobot_server.query_interpreter, '!ask {}.'.format(query))
+                            if res is None:
+                                res = {}
+                            else:
+                                res['engine'] = 'drosobot'
+                        else:
+                            res['engine'] = 'nlp'
+                    if res.get('engine', None) == 'drosobot' and len(res['query']):
+                        res1 = yield threads.deferToThread(nlp_server.nlp_query, res['query'])
+                        res['query'] = res1
+                else:
+                    if language in translators:
+                        # Translate to English
+                        query = translators[language](query)
+                        self.log.info("nlp_query() detected language {language}. Query translated to: {query}", language=language, query=query)
+                    else:
+                        # assume English. This will cover English queries tagged as a crazy language.
+                        pass
+
+                    res = yield threads.deferToThread(nlp_server.nlp_query, query)
+                    res['engine'] = 'nlp'
+            except:
+                exc_type, exc_value, exc_traceback = sys.exc_info()
+                tb = ''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))
+                print("An error occured during 'nlp_query':\n" + tb)
+                raise RuntimeError("NLP server encountered error when intepreting query")
+            returnValue(res)
 
         uri = six.u('ffbo.nlp.query.%s' % (str(details.session)))
         yield self.register(nlp_query, uri,options=RegisterOptions(concurrency=10))
@@ -294,6 +335,8 @@ if __name__ == '__main__':
     parser.add_argument('--int_cert', dest='intermediate_cert_file', type=six.text_type,
                         default=intermediate_cert_file,
                         help='Intermediate PEM certificate file (defaults to value from config.py).')
+    parser.add_argument('--drosobot', dest='use_drosobot', action='store_true',
+                        help='Enable drosobot')
     parser.add_argument('--no-ssl', dest='ssl', action='store_false')
     parser.add_argument('--no-auth', dest='authentication', action='store_false')
     parser.set_defaults(ssl=ssl)
@@ -320,7 +363,8 @@ if __name__ == '__main__':
     else:
         name = args.name
 
-    extra = {'auth': args.authentication, 'app': args.app, 'dataset': dataset, 'name': name}
+    extra = {'auth': args.authentication, 'app': args.app, 'dataset': dataset, 'name': name,
+             'drosobot': args.use_drosobot}
 
     if args.ssl:
         st_cert=open(args.ca_cert_file, 'rt').read()
