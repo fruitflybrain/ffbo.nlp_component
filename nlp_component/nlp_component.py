@@ -113,7 +113,7 @@ class AppSession(ApplicationSession):
         if self.use_drosobot:
             from drosobot.drosobot import QueryEngine
             drosobot_server = QueryEngine()
-            drosobot_server.prepare()
+            drosobot_server.prepare(num_processes=1)
         
         self.server_config = {six.u('name'): six.u(self.name),
                               six.u('dataset'): six.u(self.dataset),
