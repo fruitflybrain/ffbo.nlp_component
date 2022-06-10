@@ -71,8 +71,10 @@ if __name__ == "__main__":
             'configparser',
             'service-identity'
         ],
-        dependency_links=['https://github.com/fruitflybrain/quepy/tarball/develop#egg=quepy-0.4.0',
-                          'https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/develop#egg=neuroarch_nlp-0.4.0',
-                          'https://github.com/fruitflybrain/refo/tarball/master#egg=refo-0.14'],
+        extras_require = {
+            "drosobot": [
+                "drosobot @ https://github.com/fruitflybrain/drosobot/tarball/main#egg=drosobot-0.1.0"
+            ]
+        },
         eager_resources = ['languages/es.json', 'languages/ro.json','languages/fr.json']
     )
