@@ -112,7 +112,10 @@ class AppSession(ApplicationSession):
         translators = {}
         if self.use_drosobot:
             from drosobot.drosobot import QueryEngine
-            drosobot_server = QueryEngine()
+            data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data')
+            if not os.path.exists(data_path):
+                raise IOError('DrosoBOT data not found. Please download it to the following directory: {}'.format(data_path))
+            drosobot_server = QueryEngine(data_path = data_path)
             drosobot_server.prepare(num_processes=1)
         
         self.server_config = {six.u('name'): six.u(self.name),
