@@ -15,7 +15,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'nlp_component'
-VERSION =            '0.4.0'
+VERSION =            '0.4.1'
 AUTHOR =             'Adam Tomkins, Nikul Ukani, Yiyin Zhou'
 AUTHOR_EMAIL =       'a.tomkins@shef.ac.uk, nikul@ee.columbia.edu, yiyin@ee.columbia.edu'
 MAINTAINER =         'Yiyin Zhou'
@@ -66,7 +66,7 @@ if __name__ == "__main__":
             'autobahn[twisted]',
             'plac',
             'quepy @ https://github.com/fruitflybrain/quepy/tarball/v0.4.0#egg=quepy-0.4.0',
-            'neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/v0.4.0#egg=neuroarch_nlp-0.4.0',
+            'neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/v0.5.0#egg=neuroarch_nlp-0.5.0',
             'refo @ https://github.com/fruitflybrain/refo/tarball/master#egg=refo-0.14',
             'configparser',
             'service-identity'
