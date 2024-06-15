@@ -65,7 +65,7 @@ if __name__ == "__main__":
         install_requires = [
             'autobahn[twisted]',
             'plac',
-            'quepy @ https://github.com/fruitflybrain/quepy/tarball/v0.4.0#egg=quepy-0.4.0',
+            'quepy @ https://github.com/fruitflybrain/quepy/tarball/v0.4.1#egg=quepy-0.4.1',
             'neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/v0.5.0#egg=neuroarch_nlp-0.5.0',
             'refo @ https://github.com/fruitflybrain/refo/tarball/master#egg=refo-0.14',
             'configparser',
