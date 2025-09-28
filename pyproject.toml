@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nlp_component"
+version = "0.4.2"
+description = "Fruit Fly Brain Observatory NLP Component"
+license = { text = "BSD" }
+authors = [
+  { name = "Adam Tomkins", email = "a.tomkins@shef.ac.uk" },
+  { name = "Nikul Ukani",  email = "nikul@ee.columbia.edu" },
+  { name = "Yiyin Zhou",   email = "yiyin@ee.columbia.edu" }
+]
+maintainers = [
+  { name = "Yiyin Zhou", email = "yiyin@ee.columbia.edu" }
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development"
+]
+dependencies = [
+  "autobahn[twisted]",
+  "plac",
+  "quepy @ https://github.com/fruitflybrain/quepy/tarball/v0.4.1#egg=quepy-0.4.1",
+  "neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/v0.5.0#egg=neuroarch_nlp-0.5.0",
+  "refo @ https://github.com/fruitflybrain/refo/tarball/master#egg=refo-0.14",
+  "configparser",
+  "service-identity"
+]
+
+[project.optional-dependencies]
+drosobot = [
+  "drosobot @ https://github.com/fruitflybrain/drosobot/tarball/main#egg=drosobot-0.1.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/fruitflybrain/ffbo.nlp_component"
+Download = "https://github.com/fruitflybrain/ffbo.nlp_component"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nlp_component*"]
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.package-data]
+nlp_component = ["languages/*.json"]
