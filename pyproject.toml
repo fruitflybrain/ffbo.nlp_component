@@ -10,10 +10,10 @@ license = { text = "BSD" }
 authors = [
   { name = "Adam Tomkins", email = "a.tomkins@shef.ac.uk" },
   { name = "Nikul Ukani",  email = "nikul@ee.columbia.edu" },
-  { name = "Yiyin Zhou",   email = "yiyin@ee.columbia.edu" }
+  { name = "Yiyin Zhou",   email = "yiyin.zhou@fordham.edu" }
 ]
 maintainers = [
-  { name = "Yiyin Zhou", email = "yiyin@ee.columbia.edu" }
+  { name = "Yiyin Zhou", email = "yiyin.zhou@fordham.edu" }
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -29,7 +29,7 @@ dependencies = [
   "autobahn[twisted]",
   "plac",
   "quepy @ https://github.com/fruitflybrain/quepy/tarball/v0.4.1#egg=quepy-0.4.1",
-  "neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/v0.5.0#egg=neuroarch_nlp-0.5.0",
+  "neuroarch_nlp @ https://github.com/fruitflybrain/ffbo.neuroarch_nlp/tarball/v0.5.1#egg=neuroarch_nlp-0.5.1",
   "refo @ https://github.com/fruitflybrain/refo/tarball/master#egg=refo-0.14",
   "configparser",
   "service-identity"
